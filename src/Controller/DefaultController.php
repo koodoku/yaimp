@@ -1,46 +1,37 @@
 <?php
 
-// src/Controller/DefaultController.php
 namespace App\Controller;
 
-use App\Entity\Students;
-use App\Service\GreetingService;
-use App\Service\IsPrimeService;
-// use Doctrine\ORM\EntityManagerInterface;
+use App\Service\FibonacciService; 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class DefaultController  extends AbstractController
+class DefaultController extends AbstractController
 {
-    private IsPrimeService $isPrimeService;
+    private FibonacciService $fibonacciService; 
 
-    public function __construct(IsPrimeService $isPrimeService)
+    public function __construct(FibonacciService $fibonacciService)
     {
-        $this->isPrimeService = $isPrimeService;
+        $this->fibonacciService = $fibonacciService;
     }
 
-    #[Route('/prime/{number}', methods: ["GET"])]
-    public function checkPrimeNumber($number): JsonResponse
+    #[Route('/fibonacci/{number}', methods: ["GET"])] 
+    public function checkFibonacciNumber(int $number): JsonResponse
     {
-        $isPrime = $this->isPrimeService->isPrime($number);
-
+        $isFibonacci = $this->fibonacciService->isFibonacci($number);
 
         return new JsonResponse([
             'number' => $number,
-            'is_prime' => $isPrime,
-            'message' => $isPrime ? 'Это простое число' : 'Это составное число'
+            'is_fibonacci' => $isFibonacci,
+            'message' => $isFibonacci ? 'Это число Фибоначчи' : 'Это не число Фибоначчи'
         ]);
     }
-
-
 
     #[Route('/simplicity', methods: ['GET'])]
     public function simple(): Response
     {
         return new Response('Simple! Easy! Great!');
     }
-
-
 }
