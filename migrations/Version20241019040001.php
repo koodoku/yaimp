@@ -14,7 +14,7 @@ final class Version20241019040001 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'создает сущность Stock';
     }
 
     public function up(Schema $schema): void
@@ -29,3 +29,4 @@ final class Version20241019040001 extends AbstractMigration
         $this->addSql('DROP TABLE stock');
     }
 }
+//не проверила mysql 
