@@ -16,6 +16,9 @@ class Stock
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $ticker = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +32,18 @@ class Stock
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getTicker(): ?string
+    {
+        return $this->ticker;
+    }
+
+    public function setTicker(string $ticker): static
+    {
+        $this->ticker = $ticker;
 
         return $this;
     }
