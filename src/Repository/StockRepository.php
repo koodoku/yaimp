@@ -15,4 +15,16 @@ class StockRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Stock::class);
     }
+
+    public function findById(int $stockId): ?Stock
+    {
+    
+        return $this -> createQueryBuilder(alias:'s')
+        ->andWhere('s.id = :stockId')
+        ->setParameter('stockId', $stockId)   
+        ->getQuery()
+        ->getOneOrNullResult() 
+        ;
+}
+
 }
