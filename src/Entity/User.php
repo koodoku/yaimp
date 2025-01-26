@@ -140,7 +140,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->portfolios->contains($portfolio)) {
             $this->portfolios->add($portfolio);
-            $portfolio->setUserId($this);
+            // $portfolio->setUserId($this);
         }
 
         return $this;

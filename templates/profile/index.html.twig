@@ -1,22 +1,74 @@
 {% extends 'base.html.twig' %}
 
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
+
 {% block title %}User Profile{% endblock %}
 
 {% block body %}
 <div>
     {% set total = 0 %}
     <h1>User name: {{ user.username }}</h1>
-    <h1>All portfolios: </h1>
+    <h2>Your Portfolios:</h2>
+    <h3>Total number of portfolios: {{ user.portfolios|length }}</h3>
+    
     {% for portfolio in user.portfolios %}
-        <span>Portfolio {{ portfolio.id }} has {{ portfolio.balance }} money and has stocks:</span>
-        <br>
-        {% for depositary in portfolio.depositaries %}
-            {% set total = total + depositary.quantity %}
-            Stock name: {{ depositary.stock.name }}, quantity: {{ depositary.quantity }}
-            <br>
-        {% endfor %}
-        <br>
+        {% set walletTotal = 0 %}
+        
+        <div>
+            <h4>Portfolio ID: {{ portfolio.id }}</h4>
+            <p>Balance: {{ portfolio.balance }}</p>
+            <p>Stocks:</p>
+            <ul>
+                {% for depositary in portfolio.depositaries %}
+                    {% set walletTotal = walletTotal + depositary.quantity %}
+                    <li>
+                        <strong>{{ depositary.stock.name }}</strong> 
+                        (Ticker: {{ depositary.stock.ticker }}) - 
+                        Quantity: {{ depositary.quantity }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        {% set walletTotal = walletTotal + portfolio.balance %}
+        {% set total = total + walletTotal %}
+        
+        <h4>Portfolio {{ portfolio.id }} Total: {{ walletTotal }}</h4>
+        <hr>
     {% endfor %}
-    <h1> Total quantity: {{ total }}</h1>
+    
+    <h1>Total Balance Across All Portfolios: {{ total }}</h1>
+    
+    {% if user.portfolios|length <= 4 %}
+        <button class="btn btn-primary" onclick="addPortfolio()">Add New Portfolio</button>
+    {% else %}
+        <button class="btn" onclick="alert('You have reached the portfolio limit!');">Add New Portfolio</button>
+    {% endif %}
 </div>
+
+<script>
+    async function addPortfolio() {
+        try {
+            const response = await fetch('{{ path('add_portfolio') }}', {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                alert('Portfolio added successfully!');
+                location.reload();
+            } else {
+                alert('Failed to add portfolio');
+            }
+        } catch (error) {
+            console.error('Error adding portfolio:', error);
+            alert('An unexpected error occurred');
+        }
+    }
+</script>
 {% endblock %}
