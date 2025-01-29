@@ -146,18 +146,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    // public function removePortfolio(Portfolio $portfolio): static
-    // {
-    //     if ($this->portfolios->removeElement($portfolio)) {
-    //         // set the owning side to null (unless already changed)
-    //         if ($portfolio->getUserId() === $this) {
-    //             $portfolio->setUserId(null);
-    //         }
-    //     }
-
-    //     return $this;
-    // }
-
     /**
      * @return Collection<int, Application>
      */

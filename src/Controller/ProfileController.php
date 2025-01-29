@@ -27,7 +27,6 @@ class ProfileController extends AbstractController
 
     #[Route(path: '/profile/addPortfolio', name: 'add_portfolio', methods: ['POST'])]
 
-    // entityManagerInterface Он предоставляет набор методов для работы с базой данных, таких как создание, чтение, обновление и удаление (CRUD)
     public function addPortfolio(EntityManagerInterface $entityManagerInterface): Response
     {
         $user = $this->getUser();

@@ -84,19 +84,4 @@ class Portfolio
         return $this;
     }
 
-
-    // removePortfolio()
-// Удаляет объект Depositary из коллекции и разрывает связ
-
-    // public function removePortfolio(Depositary $portfolio): static
-    // {
-    //     if ($this->Portfolio->removeElement($portfolio)) {
-    //         // set the owning side to null (unless already changed)
-    //         if ($portfolio->getPortfolio() === $this) {
-    //             $portfolio->setPortfolio(null);
-    //         }
-    //     }
-
-    //     return $this;
-    // }
 }
