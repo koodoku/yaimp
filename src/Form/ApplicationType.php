@@ -19,7 +19,7 @@ class ApplicationType extends AbstractType
             ->add('price', NumberType::class) 
             ->add('quantity', IntegerType::class) 
             ->add('user_id', IntegerType::class) 
-//             ->add('stock_id', IntegerType::class)
+            ->add('stock_id', IntegerType::class)
             ->add('action', EnumType::class, [ 
                 'class' => ActionEnum::class 
             ]) 

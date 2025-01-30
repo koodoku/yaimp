@@ -17,24 +17,28 @@ class Portfolio
 
     #[ORM\ManyToOne(inversedBy: 'portfolios')]
     #[ORM\JoinColumn(nullable: false)]
-
     private ?User $user = null;
 
     #[ORM\Column]
-
     // балансе 
     private ?float $balance = null;
 
     /**
      * @var Collection<int, Depositary>
      */
-
     #[ORM\OneToMany(targetEntity: Depositary::class, mappedBy: 'portfolio')]
     private Collection $depositaries;
+
+    /**
+     * @var Collection<int, Application>
+     */
+    #[ORM\OneToMany(targetEntity: Application::class, mappedBy: 'portfolio')]
+    private Collection $applications;
 
     public function __construct()
     {
         $this->depositaries = new ArrayCollection();
+        $this->applications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -79,6 +83,36 @@ class Portfolio
         if (!$this->depositaries->contains($depositary)) {
             $this->depositaries->add($depositary);
             $depositary->setPortfolio($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Application>
+     */
+    public function getApplications(): Collection
+    {
+        return $this->applications;
+    }
+
+    public function addApplication(Application $application): static
+    {
+        if (!$this->applications->contains($application)) {
+            $this->applications->add($application);
+            $application->setPortfolio($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApplication(Application $application): static
+    {
+        if ($this->applications->removeElement($application)) {
+            // set the owning side to null (unless already changed)
+            if ($application->getPortfolio() === $this) {
+                $application->setPortfolio(null);
+            }
         }
 
         return $this;

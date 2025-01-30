@@ -59,7 +59,7 @@ class GlassController extends AbstractController
         $application->setQuantity($quantity);
         $application->setAction($action);
         $application->setPrice($price);
-        $application->setUser(current($users));
+        $application->setPortfolio(current($users));
 
         $appropriateApplication = $this->applicationRepository->findAppropriate($application);
         if($appropriateApplication !== null){
