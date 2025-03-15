@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\StockRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM; 
 
 #[ORM\Entity(repositoryClass: StockRepository::class)]
 class Stock
@@ -16,7 +16,7 @@ class Stock
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private ?string $security = null;
 
     #[ORM\Column(length: 255)]
     private ?string $ticker = null;
@@ -37,14 +37,14 @@ class Stock
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getSecurity(): ?string
     {
-        return $this->name;
+        return $this->security;
     }
 
-    public function setName(string $name): static
+    public function setSecurity(string $security): static
     {
-        $this->name = $name;
+        $this->security = $security;
 
         return $this;
     }
@@ -64,12 +64,12 @@ class Stock
     /**
      * @return Collection<int, Application>
      */
-    public function getApplications(): Collection
+    public function getapplications(): Collection
     {
         return $this->applications;
     }
 
-    public function addApplication(Application $application): static
+    public function addApplicatio(Application $application): static
     {
         if (!$this->applications->contains($application)) {
             $this->applications->add($application);
@@ -79,7 +79,7 @@ class Stock
         return $this;
     }
 
-    public function removeApplication(Application $application): static
+    public function removeApplicatio(Application $application): static
     {
         if ($this->applications->removeElement($application)) {
             // set the owning side to null (unless already changed)

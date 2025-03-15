@@ -1,137 +1,121 @@
+/* Основной стиль для всего тела страницы */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: "Roboto", sans-serif;
-    background: linear-gradient(90deg, #D1C6F3, #E9BCAC);
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #ffdde1, #ee9ca7);
+  margin: 0;
+  padding: 0;
+}
 
-  }
+/* Контейнер профиля пользователя */
+#user-profile {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-.form-control {
-  padding: 10px;
-  font-size: 20px;
-  border: 1px solid #ccc;
+/* Заголовки */
+#user-name,
+#portfolios-title,
+#total-balance {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+#user-name {
+  font-size: 2.5rem;
+}
+
+#portfolios-title {
+  font-size: 2rem;
+}
+
+#portfolio-count {
+  font-size: 1.5rem;
+}
+
+#total-balance {
+  margin-top: 30px;
+  font-size: 1.8rem;
+}
+
+/* Список портфелей */
+#portfolios-list {
+  margin-top: 20px;
+}
+
+.portfolio-entry {
+  margin-bottom: 30px;
+  padding: 15px;
+  background-color: #ecf0f1;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.portfolio-entry .portfolio-info {
+  font-size: 1.2rem;
+  color: #34495e;
+}
+
+.portfolio-entry .portfolio-balance {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+/* Элементы депозита */
+.depositary-entry {
+  margin-top: 10px;
+}
+
+.depositary-entry .stock-name {
+  font-size: 1.2rem;
+  color: #34495e;
+}
+
+.depositary-entry .stock-details {
+  font-size: 1rem;
+  color: #7f8c8d;
+}
+
+/* Общий стиль для кнопок */
+button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
   border-radius: 5px;
-  font-size: 20px;
-  margin-bottom: 15px;
-}
-.username-field {
-  background-color: #f9f9ff; 
-  color: #333; 
-}
-.password-field {
-  background-color: #fff7f7; 
-  color: #555;
+  border: none;
+  transition: background-color 0.3s ease;
 }
 
-  h1, h2, h3, h4 {
-    font-family: "Roboto", sans-serif;
-    font-weight: bold;
-    color: #333;
-    line-height: 1.0;
-  }
-  p {
-    font-family: "Roboto", sans-serif;
-    color: #333;
-    font-weight: bold;
-    line-height: 1.0;
-    font-size: 15px;
-  }
-
-  hr {
-    border: none; 
-    height: 1px; 
-    background-color:#eb91a3; 
-    margin: 20px 0;
+button:hover {
+  background-color: #2980b9;
 }
 
-  #user-profile {
-    max-width: 1200px;
-    margin: 50px auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+/* Кнопка "Добавить портфель" */
+button.btn-primary {
+  background-color: #3498db;
+  color: #fff;
+}
 
-  #user-name,
-  #portfolios-title,
-  #total-balance {
-    color: #2c3e50;
-    font-weight: 600;
-  }
-  
-  #user-name {
-    font-size: 2.5rem;
-  }
-  
-  #portfolios-title {
-    font-size: 2rem;
-  }
-  
-  #portfolio-count {
-    font-size: 1.5rem;
-  }
-  
-  #total-balance {
-    margin-top: 30px;
-    font-size: 1.8rem;
-  }
-  #portfolios-list {
-    margin-top: 20px;
-  }
-  
-  .portfolio-entry {
-    margin-bottom: 30px;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .portfolio-entry .portfolio-info {
-    font-size: 1.2rem;
-    color: #34495e;
-  }
-  
-  .portfolio-entry .portfolio-balance {
-    font-size: 1.5rem;
-    color: #2c3e50;
-    font-weight: 600;
-  }
-  .depositary-entry {
-    margin-top: 10px;
-  }
-  
-  .depositary-entry .stock-name {
-    font-size: 1.2rem;
-    color: #34495e;
-  }
-  
-  .depositary-entry .stock-details {
-    font-size: 1rem;
-    color: #7f8c8d;
-  }
-  button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 5px;
-    border: none;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #CD4662;
-  }
+button.btn-primary:hover {
+  background-color: #2980b9;
+}
 
-  button.btn {
-    background-color: #8e44ad; 
-    color: #fff;
-  }
+/* Кнопка ограничения */
+button.btn {
+  background-color: #e74c3c;
+  color: #fff;
+}
 
-  button.btn:hover {
-    background-color: #9b59b6; 
-  }
+button.btn:hover {
+  background-color: #c0392b;
+}
 
-  #portfolio-actions {
-    margin-top: 20px;
-    text-align: center;
-  }
+/* Контейнер действий с портфелями */
+#portfolio-actions {
+  margin-top: 20px;
+  text-align: center;
+}

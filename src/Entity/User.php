@@ -1,21 +1,21 @@
 <?php
-
+// объявление пространства имен
 namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM; // аннотации для описания сущностей 
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-#[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])]
-#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
+#[ORM\Entity(repositoryClass: UserRepository::class)]  
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])] 
+#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')] 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Id]
+    #[ORM\Id] 
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
@@ -34,15 +34,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
-
     /**
      * @var Collection<int, Portfolio>
      */
+
     #[ORM\OneToMany(targetEntity: Portfolio::class, mappedBy: 'user')]
     private Collection $portfolios;
+
+    /**
+     * @var Collection<int, Application>
+     */
+    #[ORM\OneToMany(targetEntity: Application::class, mappedBy: 'user')]
+    private Collection $applicatios;
+
     public function __construct()
     {
         $this->portfolios = new ArrayCollection();
+        $this->applicatios = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -67,6 +75,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @see UserInterface
      */
+
+
     public function getUserIdentifier(): string
     {
         return (string) $this->username;
@@ -114,6 +124,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      */
+
+    // Метод Symfony для очистки временных данных (например, паролей в открытом виде).
     public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
@@ -123,6 +135,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Portfolio>
      */
+
     public function getPortfolios(): Collection
     {
         return $this->portfolios;
@@ -132,7 +145,49 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->portfolios->contains($portfolio)) {
             $this->portfolios->add($portfolio);
-            // $portfolio->setUserId($this);
+            $portfolio->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    // public function removePortfolio(Portfolio $portfolio): static
+    // {
+    //     if ($this->portfolios->removeElement($portfolio)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($portfolio->getUserId() === $this) {
+    //             $portfolio->setUserId(null);
+    //         }
+    //     }
+
+    //     return $this;
+    // }
+
+    /**
+     * @return Collection<int, Application>
+     */
+    public function getApplicatios(): Collection
+    {
+        return $this->applicatios;
+    }
+
+    public function addApplicatio(Application $application): static
+    {
+        if (!$this->applicatios->contains($application)) {
+            $this->applicatios->add($application);
+            $application->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApplicatio(Application $application): static
+    {
+        if ($this->applicatios->removeElement($application)) {
+            // set the owning side to null (unless already changed)
+            if ($application->getUser() === $this) {
+                $application->setUser(null);
+            }
         }
 
         return $this;

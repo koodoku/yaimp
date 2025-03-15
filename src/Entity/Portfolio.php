@@ -14,31 +14,31 @@ class Portfolio
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
     #[ORM\ManyToOne(inversedBy: 'portfolios')]
+    // Указывает что  поле пользователя не должно быть нулабельным тк у каждого портфеля обязательно сущ пользователь 
     #[ORM\JoinColumn(nullable: false)]
+
+    // хранит объект пользователя
     private ?User $user = null;
 
     #[ORM\Column]
+
     // балансе 
     private ?float $balance = null;
 
+    // Оп оп вот она связь с Депозитарием
+    // PHPDoc-аннотация, указывающая, что это поле содержит коллекцию объектов
     /**
      * @var Collection<int, Depositary>
      */
+
+    // Тут аналогично связи пользователя с портфелем, один ко многим, 1 портфель =? многа бумяг 
     #[ORM\OneToMany(targetEntity: Depositary::class, mappedBy: 'portfolio')]
     private Collection $depositaries;
-
-    /**
-     * @var Collection<int, Application>
-     */
-    #[ORM\OneToMany(targetEntity: Application::class, mappedBy: 'portfolio')]
-    private Collection $applications;
 
     public function __construct()
     {
         $this->depositaries = new ArrayCollection();
-        $this->applications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -88,34 +88,19 @@ class Portfolio
         return $this;
     }
 
-    /**
-     * @return Collection<int, Application>
-     */
-    public function getApplications(): Collection
-    {
-        return $this->applications;
-    }
 
-    public function addApplication(Application $application): static
-    {
-        if (!$this->applications->contains($application)) {
-            $this->applications->add($application);
-            $application->setPortfolio($this);
-        }
+    // removePortfolio()
+// Удаляет объект Depositary из коллекции и разрывает связ
 
-        return $this;
-    }
+    // public function removePortfolio(Depositary $portfolio): static
+    // {
+    //     if ($this->Portfolio->removeElement($portfolio)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($portfolio->getPortfolio() === $this) {
+    //             $portfolio->setPortfolio(null);
+    //         }
+    //     }
 
-    public function removeApplication(Application $application): static
-    {
-        if ($this->applications->removeElement($application)) {
-            // set the owning side to null (unless already changed)
-            if ($application->getPortfolio() === $this) {
-                $application->setPortfolio(null);
-            }
-        }
-
-        return $this;
-    }
-
+    //     return $this;
+    // }
 }

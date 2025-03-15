@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Repository\DepositaryRepository;
 use Doctrine\ORM\Mapping as ORM;
-use RuntimeException;
 
 #[ORM\Entity(repositoryClass: DepositaryRepository::class)]
 class Depositary
@@ -24,11 +23,6 @@ class Depositary
 
     #[ORM\Column]
     private ?int $quantity = null;
-
-    public function __construct()
-    {
-        $this->quantity = 0;
-    }
 
     public function getId(): ?int
     {
@@ -70,28 +64,4 @@ class Depositary
 
         return $this;
     }
-
-    public function addQuantity(int $quantity): static
-    {
-        if($quantity <= 0){
-            throw new RuntimeException('Quanity must be greater than 0');
-        }
-        $this->quantity += $quantity;
-        return $this;
-    }
-
-    public function subQuantity(int $quantity): static
-    {
-        if($this->quantity - $quantity <= 0 || $quantity <= 0){
-            throw new RuntimeException('Quanity must be greater than 0');
-        }
-
-        $this->quantity -= $quantity;
-
-        return $this;
-    }
-
-
-
-
 }
